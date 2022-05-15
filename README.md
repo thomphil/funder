@@ -41,3 +41,4 @@ Run the following commands in the a single terminal session:-
 - REST API permissions
 - API Filter uses strategy display name - would likely benefit from having a more URL friendly version similar to how the Fund List View does.
 - Test coverage far from 100%
+- .env file commited for demo only
