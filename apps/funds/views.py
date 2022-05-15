@@ -1,7 +1,10 @@
-from django.urls import reverse
-from django.views.generic import CreateView, ListView, UpdateView
+from typing import Optional
+
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Sum
+from django.urls import reverse
+from django.views.generic import CreateView, ListView, UpdateView
+
 from .models import STRATEGY_CHOICES, Fund, FundCSV
 
 
@@ -13,7 +16,10 @@ class FundListView(ListView):
     strategy_choices = dict(STRATEGY_CHOICES)
 
     @property
-    def strategy_query_str(self):
+    def strategy_query_str(self) -> Optional[str]:
+        """
+        Returns the strategy query string if it exists
+        """
         if self._strategy_query_str:
             return self._strategy_query_str
 
@@ -63,7 +69,7 @@ class FundCSVUploadView(SuccessMessageMixin, CreateView):
     fields = ['file']
     success_message = 'Fund CSV file uploaded successfully - this will be processed in the background shortly. See the CSV Queue for status.'
 
-    def get_success_url(self) -> str:
+    def get_success_url(self):
         return reverse('fund-csv-list')
 
 
