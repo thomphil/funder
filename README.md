@@ -1,6 +1,6 @@
 **Getting started**
 
-Run the following commands in the a single terminal session:-
+Run the following commands in a single terminal session:-
 
 - `python -m venv .venv`
 - `source .venv/bin/activate`
