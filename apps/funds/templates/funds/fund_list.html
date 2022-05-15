@@ -30,7 +30,8 @@
           <td>{{ fund.strategy }}</td>
           <td>{% if fund.aum %}{{ fund.aum }}{% else %}-{% endif%}</td>
           <td>{% if fund.inception_date %}{{ fund.inception_date }}{% else %}-{% endif%}</td>
-          <td><a href="/fund/delete/{{ fund.id }}">Delete</a></td>
+          <td><a href="{% url 'fund-delete' fund.id %}">Delete</a></td>
+
         </tr>
       {% empty %}
         <tr>

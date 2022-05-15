@@ -44,6 +44,19 @@ class FundListView(ListView):
         return context
 
 
+class FundDeleteView(SuccessMessageMixin, UpdateView):
+    """
+        This performs a soft delete by setting the is_deleted attribute.
+    """
+    model = Fund
+    template_name = 'funds/fund_delete.html'
+    fields = ['is_deleted']
+    success_message = 'Fund successfully deleted.'
+
+    def get_success_url(self):
+        return reverse('fund-list')
+
+
 class FundCSVUploadView(SuccessMessageMixin, CreateView):
     model = FundCSV
     template_name = 'funds/fund_csv_upload.html'
