@@ -13,8 +13,8 @@
         <h1 class="text-center mb-2">Funder</h1>
         <nav class="mb-4">
             <a href="{% url 'fund-list' %}">Fund List</a> | 
-            {% comment %} <a href="{% url 'fund-csv-upload' %}">Upload CSV</a> |  {% endcomment %}
-            {% comment %} <a href="{% url 'fund-csv-list' %}">CSV Queue</a> {% endcomment %}
+            <a href="{% url 'fund-csv-upload' %}">Upload CSV</a> | 
+            <a href="{% url 'fund-csv-list' %}">CSV Queue</a>
         </nav>
 
         {% if messages %}

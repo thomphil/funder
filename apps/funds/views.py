@@ -52,3 +52,10 @@ class FundCSVUploadView(SuccessMessageMixin, CreateView):
 
     def get_success_url(self) -> str:
         return reverse('fund-csv-list')
+
+
+class FundCSVListView(ListView):
+    model = FundCSV
+    template_name = 'funds/fund_csv_list.html'
+    context_object_name = 'funds'
+    ordering = "-created"

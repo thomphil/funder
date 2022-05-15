@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <table class="table table-striped">
+      <tr>
+        <th>Created</th>
+        <th>Status</th>
+      </tr>
+
+      {% for fund in funds %}
+        <tr>
+          <td>{{ fund.created }}</td>
+          <td>{{ fund.status }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td>No queue items exist</td>
+        </tr>
+      {% endfor %}
+    </table>
+{% endblock %}
