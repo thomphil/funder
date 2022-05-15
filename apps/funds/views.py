@@ -1,7 +1,8 @@
+from django.urls import reverse
+from django.views.generic import CreateView, ListView, UpdateView
+from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Sum
-from django.views.generic import ListView
-
-from .models import STRATEGY_CHOICES, Fund
+from .models import STRATEGY_CHOICES, Fund, FundCSV
 
 
 class FundListView(ListView):
@@ -41,3 +42,13 @@ class FundListView(ListView):
             context['current_strategy'] = self.strategy_query_str
 
         return context
+
+
+class FundCSVUploadView(SuccessMessageMixin, CreateView):
+    model = FundCSV
+    template_name = 'funds/fund_csv_upload.html'
+    fields = ['file']
+    success_message = 'Fund CSV file uploaded successfully - this will be processed in the background shortly. See the CSV Queue for status.'
+
+    def get_success_url(self) -> str:
+        return reverse('fund-csv-list')
