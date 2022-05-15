@@ -75,3 +75,25 @@ class FundCSV(models.Model):
         max_length=100,
         default='pending',
     )
+
+    def get_csv_reader(self):
+        decoded_file = self.file.read().decode("utf-8-sig")
+        io_string = io.StringIO(decoded_file)
+        csv_reader = csv.DictReader(io_string)
+
+        return csv_reader
+
+    def get_row_objects(self):
+        csv_reader = self.get_csv_reader()
+
+        rows = [FundCSVRow.parse_args(row.values()) for row in csv_reader]
+        return rows
+
+    def clean_file(self):
+        try:
+            self.get_row_objects()
+        except ValueError as e:
+            raise ValidationError(e)
+
+    def clean(self):
+        self.clean_file()
