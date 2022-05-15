@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form>
+      <select name="strategy">
+        <option value="">Select Strategy</option>
+        {% for value, label in strategy_choices %}
+          <option value="{{ value }}" {% if current_strategy == value %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit">Filter</button>
+    </form>
+
+    {% if current_strategy %}
+      <a href="/">Clear Filters</a>
+    {% endif %}
+    
+    <table class="table table-striped">
+      <tr>
+        <th>Name</th>
+        <th>Strategy</th>
+        <th>AUM (USD)</th>
+        <th>Inception Date</th>
+        <th>Delete</th>
+      </tr>
+
+      {% for fund in funds %}
+        <tr>
+          <td>{{ fund.name }}</td>
+          <td>{{ fund.strategy }}</td>
+          <td>{% if fund.aum %}{{ fund.aum }}{% else %}-{% endif%}</td>
+          <td>{% if fund.inception_date %}{{ fund.inception_date }}{% else %}-{% endif%}</td>
+          <td><a href="/fund/delete/{{ fund.id }}">Delete</a></td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td>No funds found</td>
+        </tr>
+      {% endfor %}
+    </table>
+
+    <div>
+      <div>
+        <strong>Results shown:</strong> {{ funds_count }}
+      </div>
+      <div>
+        {% if aum_sum %}
+          <strong>Sum of AUM values:</strong> {{ aum_sum }}<br>
+        {% else %}
+          <strong>Sum of AUM values:</strong> 0<br>
+        {% endif %}
+      </div>
+    </div>
+{% endblock %}
